@@ -1,0 +1,89 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARBUZ, BRAUZER</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        #search-container {
+            margin-top: 50px;
+        }
+        #search-input {
+            padding: 10px;
+            width: 300px;
+            font-size: 18px;
+            border: 2px solid #ff6f61;
+            border-radius: 5px;
+        }
+        #search-button, #file-button {
+            padding: 10px;
+            font-size: 18px;
+            background-color: #ff6f61;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        #file-button {
+            background-color: #4CAF50; /* Цвет для кнопки "Открыть файл" */
+        }
+        #search-button:hover, #file-button:hover {
+            background-color: #ff3b3b;
+        }
+    </style>
+</head>
+<body>
+
+<div id="search-container">
+    <h1>ARBUZ, BRAUZER</h1>
+    <input type="text" id="search-input" placeholder="Введите ваш запрос">
+    <button id="search-button">Поиск</button>
+    <button id="file-button">Открыть файл</button>
+</div>
+
+<script>
+    const searchButton = document.getElementById('search-button');
+    const searchInput = document.getElementById('search-input');
+    const fileButton = document.getElementById('file-button');
+
+    // Поиск в Google
+    searchButton.addEventListener('click', function() {
+        const query = searchInput.value;
+        const url = 'https://www.google.com/search?q=' + encodeURIComponent(query);
+        window.open(url, '_blank'); // Открыть новое окно с результатами поиска
+    });
+
+    // Открытие локального HTML файла
+    fileButton.addEventListener('click', function() {
+        const fileInput = document.createElement('input');
+        fileInput.type = 'file';
+        fileInput.accept = '.html'; // Принимаем только HTML файлы
+        fileInput.onchange = e => { 
+            const file = e.target.files[0]; // Получаем выбранный файл
+            const url = URL.createObjectURL(file); // Создадим URL объекта
+
+            // Открываем файл в новом окне
+            window.open(url, '_blank');
+        }
+        fileInput.click(); // Эмулируем клик по input для выбора файла
+    });
+
+    // Делаем поиск по нажатию клавиши Enter
+    searchInput.addEventListener('keypress', function(event) {
+        if (event.key === 'Enter') {
+            searchButton.click();
+        }
+    });
+</script>
+
+</body>
+</html>
